@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Quiz from './pages/Quiz';
+import Result from './pages/Result';
 
 export default function App() {
   const [questions, setQuestions] = useState([]);
@@ -26,6 +30,12 @@ export default function App() {
   }, [])
   
   return (
-    <div className='bg-emerald-50'>App</div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/quiz' element={<Quiz/>}/>
+        <Route path='/result' element={<Result/>}/>
+      </Routes>
+    </Router>
   )
 }
