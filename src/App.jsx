@@ -16,7 +16,7 @@ export default function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3000/data")
+    fetch("https://sentense-backend-3.onrender.com/data")
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data.questions);
