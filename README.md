@@ -1,17 +1,35 @@
-<<<<<<< HEAD
-# React + Vite
+# Quiz App - Internship Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple and responsive Quiz Application built using **ReactJS** for the frontend and **JSON Server** for the backend. It allows users to answer multiple-choice questions and track their responses.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: React.js (Vite)
+- **Backend**: JSON Server (Mock REST API)
+- **Styling**: Tailwind CSS
+- **Deployment**:
+  - Frontend: [Vercel](https://sentence-construction-tool-six.vercel.app/)
+  - Backend: [Render](https://sentense-backend-3.onrender.com)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# sentence-construction-tool
-an application where user need to fill in the blanks with options provided and based on that feedback will be provided
->>>>>>> 6963fd882da8dc368d38282925a64e5b28bdfc62
+---
+
+## 📌 Features
+
+- Fetches questions from a REST API.
+- User can select multiple answers.
+- Responses are stored per question.
+- Responsive UI for mobile and desktop devices.
+- Error handling and loading states implemented.
+
+---
+
+## 🔧 Installation (Local Setup)
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
