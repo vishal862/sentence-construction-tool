@@ -30,6 +30,5 @@ This project is a simple and responsive Quiz Application built using **ReactJS**
 ### Frontend
 
 ```bash
-cd frontend
 npm install
 npm run dev
