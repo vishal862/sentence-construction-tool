@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import Home from './pages/Home';
-import Quiz from './pages/Quiz';
-import Result from './pages/Result';
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
+import Quiz from "./pages/Quiz";
+import Result from "./pages/Result";
 
 export default function App() {
   const navigate = useNavigate();
@@ -16,20 +16,20 @@ export default function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
-   fetch("http://localhost:3000/data")
-   .then((res)=> res.json())
-   .then((data)=>{
-    setQuestions(data.questions);
-    setLoading(false);
-    setResponse(Array(data.questions.length).fill([]));
-    setUserAnswers(Array(data.questions.length).fill([]));
-   })
-   .catch((err)=>{
-    console.log("error",err);
-    setError("failed to load questions");
-    setLoading(false);
-   })
-  }, [])
+    fetch("http://localhost:3000/data")
+      .then((res) => res.json())
+      .then((data) => {
+        setQuestions(data.questions);
+        setLoading(false);
+        setResponse(Array(data.questions.length).fill([]));
+        setUserAnswers(Array(data.questions.length).fill([]));
+      })
+      .catch((err) => {
+        console.log("error", err);
+        setError("failed to load questions");
+        setLoading(false);
+      });
+  }, []);
 
   const handleAnswerSubmit = (answers) => {
     const newUserAnswers = [...userAnswers];
@@ -50,16 +50,42 @@ export default function App() {
       navigate("/result");
     }
   };
-  
+
+  const handleRestartQuiz = () => {
+    setResponse(Array(questions.length).fill([]));
+    setScore(0);
+    setUserAnswers(Array(questions.length).fill([]));
+    setCurrentQuestionIndex(0);
+    navigate("/quiz");
+  };
+
+  if (loading) return <div className="text-center p-8">Loading...</div>;
+  if (error) return <div className="text-center p-8 text-red-500">{error}</div>;
+
   return (
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/quiz' element={<Quiz 
-        questions = {questions}
-        currentQuestionIndex = {currentQuestionIndex}
-        onAnswerSubmit = {handleAnswerSubmit}
-        />}/>
-        <Route path='/result' element={<Result/>}/>
-      </Routes>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/quiz"
+        element={
+          <Quiz
+            questions={questions}
+            currentQuestionIndex={currentQuestionIndex}
+            onAnswerSubmit={handleAnswerSubmit}
+          />
+        }
+      />
+      <Route
+        path="/result"
+        element={
+          <Result
+            questions={questions}
+            userAnswers={userAnswers}
+            score={score}
+            onRestart = {handleRestartQuiz}
+          />
+        }
+      />
+    </Routes>
+  );
 }
