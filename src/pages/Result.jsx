@@ -2,8 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
-
-export default function Result({ questions, userAnswers, score,onRestart }) {
+export default function Result({ questions, userAnswers, score, onRestart }) {
   const navigate = useNavigate();
   const handleRestart = () => {
     onRestart();
@@ -20,8 +19,21 @@ export default function Result({ questions, userAnswers, score,onRestart }) {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-md shadow-md p-6">
       <div className="flex flex-col items-center mb-6">
-        <div className="rounded-full bg-green-100 border-4 border-green-500 w-24 h-24 flex items-center justify-center">
-          <span className="text-3xl font-bold text-green-600">{score}</span>
+        <div className="relative w-24 h-24">
+          <div className="absolute inset-0 rounded-full bg-green-100 border-4 border-green-100"></div>
+
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: `conic-gradient(#22c55e ${
+                score * 3.6
+              }deg, #d1fae5 0deg)`,
+            }}
+          ></div>
+
+          <div className="relative z-10 w-full h-full flex items-center justify-center">
+            <span className="text-2xl font-bold text-green-700">{score}</span>
+          </div>
         </div>
         <p className="mt-2 text-sm text-gray-600">Overall Score</p>
       </div>
@@ -60,7 +72,7 @@ export default function Result({ questions, userAnswers, score,onRestart }) {
         </button>
       </div>
       <div className="flex justify-center items-center py-7">
-      <MdKeyboardDoubleArrowDown size={60} />
+        <MdKeyboardDoubleArrowDown size={60} />
       </div>
 
       <hr className="border-t border-gray-200 mb-2" />
