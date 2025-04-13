@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
 import Result from './pages/Result';
 
 export default function App() {
+  const navigate = useNavigate();
+
   const [questions, setQuestions] = useState([]);
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,14 +30,36 @@ export default function App() {
     setLoading(false);
    })
   }, [])
+
+  const handleAnswerSubmit = (answers) => {
+    const newUserAnswers = [...userAnswers];
+    newUserAnswers[currentQuestionIndex] = answers;
+    setUserAnswers(newUserAnswers);
+
+    const currentQuestion = questions[currentQuestionIndex];
+    if (
+      currentQuestion &&
+      JSON.stringify(answers) === JSON.stringify(currentQuestion.correctAnswer)
+    ) {
+      setScore((prevScore) => prevScore + 10);
+    }
+
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1);
+    } else {
+      navigate("/result");
+    }
+  };
   
   return (
-    <Router>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/quiz' element={<Quiz/>}/>
+        <Route path='/quiz' element={<Quiz 
+        questions = {questions}
+        currentQuestionIndex = {currentQuestionIndex}
+        onAnswerSubmit = {handleAnswerSubmit}
+        />}/>
         <Route path='/result' element={<Result/>}/>
       </Routes>
-    </Router>
   )
 }
