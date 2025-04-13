@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+
 
 export default function Result({ questions, userAnswers, score,onRestart }) {
   const navigate = useNavigate();
@@ -56,6 +58,9 @@ export default function Result({ questions, userAnswers, score,onRestart }) {
         >
           Go to Dashboard
         </button>
+      </div>
+      <div className="flex justify-center items-center py-7">
+      <MdKeyboardDoubleArrowDown size={60} />
       </div>
 
       <hr className="border-t border-gray-200 mb-2" />
