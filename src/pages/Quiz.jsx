@@ -1,5 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "../components/ui/dialog";
+import { Button } from "../components/ui/button";
+import { DialogClose } from "../components/ui/dialog";
 
 export default function Quiz({
   questions,
@@ -18,7 +29,7 @@ export default function Quiz({
 
   const currentQuestion = questions[currentQuestionIndex];
   const numberOfQuestions = questions.length;
-  
+
   //When you store a value in a useRef object, it doesn't trigger a re-render of the component when the value changes. This is different from state variables, where changing the value triggers a re-render.
   const hasHandledTimeout = useRef(false);
   const navigate = useNavigate();
@@ -130,12 +141,35 @@ export default function Quiz({
       <div className="w-full max-w-2xl bg-white rounded-md shadow-md p-4 sm:p-6">
         <div className="flex justify-between items-center mb-4 font-semibold text-sm sm:text-base">
           <div>Time Left: {timer} sec</div>
-          <button
-            onClick={handleQuit}
-            className="px-3 py-1 sm:px-4 sm:py-2 rounded text-gray-700 border border-gray-300 hover:bg-gray-100 text-sm"
-          >
-            Quit
-          </button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="px-3 py-1 sm:px-4 sm:py-2 rounded text-gray-700 border border-gray-300 hover:bg-gray-100 text-sm cursor-pointer">
+                Quit
+              </button>
+            </DialogTrigger>
+            <DialogContent className={"bg-white"}>
+              <DialogHeader>
+                <DialogTitle>Are you sure you want to quit?</DialogTitle>
+                <DialogDescription>
+                  If you quit now, your current progress will be lost.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button className={"cursor-pointer"} variant="outline">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button
+                  variant="destructive"
+                  onClick={handleQuit}
+                  className={"bg-black cursor-pointer"}
+                >
+                  Yes, Quit
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div style={progressBarStyle} className="mb-4">
@@ -156,7 +190,7 @@ export default function Quiz({
             <button
               key={index}
               onClick={() => handleOptionClick(option)}
-              className="border px-2 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-100 text-xs sm:text-sm text-gray-700"
+              className="border px-2 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-100 text-xs sm:text-sm text-gray-700 cursor-pointer"
             >
               {option}
             </button>
@@ -167,7 +201,7 @@ export default function Quiz({
           <button
             disabled={!allFilled}
             onClick={handleNext}
-            className={`px-4 py-2 rounded text-white text-sm ${
+            className={`px-4 py-2 rounded text-white text-sm cursor-pointer ${
               allFilled
                 ? "bg-blue-600 hover:bg-blue-700"
                 : "bg-gray-400 cursor-not-allowed"

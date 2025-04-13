@@ -117,7 +117,7 @@ export default function Result({ questions, userAnswers, score,onRestart }) {
       <div className="mt-4 flex justify-center">
         <button
           onClick={handleRestart}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-2 px-6 text-sm"
+          className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-semibold rounded-md py-2 px-6 text-sm"
         >
           Restart Quiz
         </button>
