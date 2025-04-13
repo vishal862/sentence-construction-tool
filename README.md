@@ -32,3 +32,12 @@ This project is a simple and responsive Quiz Application built using **ReactJS**
 ```bash
 npm install
 npm run dev
+
+```
+### Backend
+```bash
+cd backend
+npm install
+npm start
+```
+Make sure the db.json file exists in the backend folder with your questions.
